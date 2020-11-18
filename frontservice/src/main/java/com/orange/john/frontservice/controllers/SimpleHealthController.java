@@ -8,6 +8,6 @@ public class SimpleHealthController {
 
     @RequestMapping("/simpleHealth")
     public String simpleHealth() {
-        return "OK";
+        return "ALLOK";
     }
 }
