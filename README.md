@@ -19,8 +19,9 @@ Application stack adheres to the ["twelve-factor app"](https://12factor.net/) pa
 - Redis (Memorystore -> Redis) instance created in same zone as GKE cluster
 - PostgreSQL (Cloud SQL) database instance created
 - service account (IAM & Admin -> Service Accounts) created with Role that grants access to Cloud SQL
-- [recommended] Google Cloud SDK installed locally (https://cloud.google.com/sdk/docs/install)
-  - additionally install kubectl and configure for GKE cluster
+- [recommended] Google Cloud SDK installed locally (https://cloud.google.com/sdk/docs/install) and configured to access Google Cloud using Google Cloud user
+  
+  - additionally install kubectl
   ```
   gcloud components install kubectl
   ```
@@ -54,7 +55,7 @@ skaffold run - to build & deploy once
 
 ## Check functionality
 Check deployments in Google Cloud (Kubernetes Engine -> Workloads)
-Wait for External load balancer to be created and an external IP to be assigned.
+Wait for External load balancer to be created and an External_IP to be assigned.
 Check endpoints:
 - no authentication http://External_IP:8080/quote
 - with Basic Authentication (admin/adminpass, user/userpass) http://External_IP:8080/unlimitedQuote and http://External_IP:8080/unlimitedQuoteB 
