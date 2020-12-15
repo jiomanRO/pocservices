@@ -36,17 +36,19 @@ Application stack adheres to the ["twelve-factor app"](https://12factor.net/) pa
   ```
   gcloud components install skaffold
   ```
-- maven
+- maven (https://maven.apache.org/download.cgi) installed
+- java jdk 1.8 or greater installed
   
 ## Deploy the project
 Clone project
 ```
-git clone
+git clone https://github.com/jiomanRO/pocservices.git
 ```
 For each service do:
 ```
 cd <service dir>
 skaffold dev - to trigger the watch loop build & deploy workflow with cleanup on exit
+or
 skaffold run - to build & deploy once
 ```
 
@@ -55,4 +57,4 @@ Check deployments in Google Cloud (Kubernetes Engine -> Workloads)
 Wait for External load balancer to be created and an external IP to be assigned.
 Check endpoints:
 - no authentication http://External_IP:8080/quote
-- with Basic Authentication http://External_IP:8080/unlimitedQuote and http://External_IP:8080/unlimitedQuoteB
+- with Basic Authentication (admin/adminpass, user/userpass) http://External_IP:8080/unlimitedQuote and http://External_IP:8080/unlimitedQuoteB 
