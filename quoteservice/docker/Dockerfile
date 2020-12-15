@@ -1,4 +1,4 @@
-FROM openjdk
+FROM openjdk:8u222-slim
 MAINTAINER jioman@gmail.com
 COPY quoteservice-0.0.1-SNAPSHOT.jar .
 ENTRYPOINT ["/usr/bin/java"]

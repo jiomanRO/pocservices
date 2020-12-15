@@ -1,0 +1,74 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: frontservice-app
+  name: frontservice-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: frontservice-app
+      tier: frontend
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: frontservice-app
+        tier: frontend
+    spec:
+      containers:
+      - image: gcr.io/gcp-playground-295112/frontservice
+        name: frontservice-app
+        resources:
+          requests:
+            memory: 256M
+            cpu: 2000m
+          limits:
+            memory: 512M
+            cpu: 4000m
+        #livenessProbe:
+        #  initialDelaySeconds: 5
+        #  httpGet:
+        #    port: 8882
+        #    path: /liveness
+        #readinessProbe:
+        #  periodSeconds: 5
+        #  failureThreshold: 1
+        #  httpGet:
+        #    port: 8882
+        #    path: /actuator/health
+        env:
+          - name: REDIS_SERVER_IP
+            valueFrom:
+              configMapKeyRef:
+                key: redis_server_ip
+                name: redis-config
+          - name: REDIS_SERVER_PORT
+            valueFrom:
+              configMapKeyRef:
+                key: redis_server_port
+                name: redis-config
+          - name: QUOTE_SERVICE
+            valueFrom:
+              configMapKeyRef:
+                key: quote_service
+                name: services-config
+          - name: QUOTE_SERVICE_PORT
+            valueFrom:
+              configMapKeyRef:
+                key: quote_service_port
+                name: services-config
+          - name: ADMIN_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                key: admin_password
+                name: security-passwords
+          - name: USER_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                key: user_password
+                name: security-passwords
+status: {}

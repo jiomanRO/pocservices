@@ -1,6 +1,7 @@
 package com.orange.john.frontservice.configuration;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -14,13 +15,19 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
+    @Value("${admin.password}")
+    String adminpass;
+
+    @Value("${user.password}")
+    String userpass;
+
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth
                 .inMemoryAuthentication()
-                .withUser("admin").password(passwordEncoder().encode("adminpassword")).roles("ADMIN")
+                .withUser("admin").password(passwordEncoder().encode(adminpass)).roles("ADMIN")
                 .and()
-                .withUser("user").password(passwordEncoder().encode("userpassword")).roles("USER");
+                .withUser("user").password(passwordEncoder().encode(userpass)).roles("USER");
     }
 
     @Bean

@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: null
+  labels:
+    app: frontservice-service
+  name: frontservice-service
+spec:
+  ports:
+  - name: 8081-8881
+    port: 8081
+    protocol: TCP
+    targetPort: 8881
+  selector:
+    app: frontservice-app
+    tier: frontend
+  type: ClusterIP
+status:
+  loadBalancer: {}

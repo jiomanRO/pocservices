@@ -1,0 +1,12 @@
+#configure kubectl for k8s cluster
+gcloud container clusters get-credentials bmi-k8s-cluster1 --zone=europe-west3
+
+#create key file for service account to have access to cloud sql from GKE
+gcloud iam service-accounts keys create sa-key.json --iam-account quote-sa@gcp-playground-295112.iam.gserviceaccount.com
+
+#create secret from sa key file
+kubectl create secret generic sa-secret --from-file=service_account.json=sa-key.json --dry-run -oyaml > k8s\sa-secret.yaml
+
+#create secret and config map with DB connection info
+kubectl create secret generic db-secret --from-literal=username=postgres --from-literal=password=password --from-literal=database=postgres --dry-run -oyaml > k8s\secret.yaml
+kubectl create configmap db-config --from-literal=db_host=localhost --from-literal=db_port=5432 --dry-run -oyaml > k8s\dbconfig.yaml

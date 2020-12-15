@@ -1,0 +1,8 @@
+apiVersion: v1
+data:
+  redis_server_ip: 10.222.158.195
+  redis_server_port: "6379"
+kind: ConfigMap
+metadata:
+  creationTimestamp: null
+  name: redis-config
