@@ -45,6 +45,16 @@ Clone project
 ```
 git clone https://github.com/jiomanRO/pocservices.git
 ```
+For accessing the database:
+  - generate a key for the service account
+  ```
+  cd <quoteservice dir>
+  gcloud iam service-accounts keys create key.json --iam-account <service_account>
+  ```
+  - from the key generate a secret for Kuberbetes to store the key
+  ```
+  kubectl create secret generic sa-secret --from-file=service_account.json=key.json --dry-run -oyaml > k8s/sa-secret.yaml
+  ```
 For each service do:
 ```
 cd <service dir>
